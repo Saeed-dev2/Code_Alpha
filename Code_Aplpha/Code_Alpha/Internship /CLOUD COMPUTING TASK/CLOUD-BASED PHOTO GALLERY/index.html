@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cloud-Based Photo Gallery</h1>
+
+<!-- Upload Form -->
+<h3>Upload a Photo</h3>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="file" name="file" accept="image/*">
+    <button type="submit">Upload</button>
+</form>
+
+<h3>Your Gallery</h3>
+<div class="gallery" id="gallery">
+    <!-- Images will be displayed here -->
+</div>
+
+<script>
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('file');
+    const gallery = document.getElementById('gallery');
+
+    // Upload image to backend API
+    uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        const response = await fetch('http://127.0.0.1:5000/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert('File uploaded successfully!');
+            loadGallery();
+        } else {
+            alert('Error uploading file: ' + data.message);
+        }
+    });
+
+    // Load all images from S3 and display them
+    async function loadGallery() {
+        const response = await fetch('http://127.0.0.1:5000/list');
+        const data = await response.json();
+        gallery.innerHTML = '';
+
+        data.files.forEach(file => {
+            const imgElement = document.createElement('img');
+            imgElement.src = `https://${'your-s3-bucket-name'}.s3.amazonaws.com/${file}`;
+            gallery.appendChild(imgElement);
+        });
+    }
+
+    // Load images on page load
+    window.onload = loadGallery;
+</script>
+
+</body>
+</html>
