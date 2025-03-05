@@ -10,7 +10,6 @@ This project is a Python script that generates a Fibonacci series using a genera
 - **Dynamic Series Length**: Generates Fibonacci numbers up to the specified limit.
 
 ---
-
 ## Prerequisites
 To run this project, ensure you have:
 - **Python 3.x** installed on your system.
