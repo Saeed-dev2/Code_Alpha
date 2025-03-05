@@ -4,7 +4,6 @@
 This project is a Python script that generates a Fibonacci series using a generator function. The Fibonacci series is a sequence of numbers where each number is the sum of the two preceding ones, starting from 0 and 1. The script allows users to specify the number of terms they want to generate and outputs the series accordingly.
 
 ---
-
 ## Features
 - **Efficient Fibonacci Generation**: Uses Python's generator function to generate Fibonacci numbers, making it memory-efficient for large series.
 - **User-Friendly Input**: Allows users to input the number of terms they want to generate.
