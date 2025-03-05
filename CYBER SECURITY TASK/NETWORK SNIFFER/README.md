@@ -41,7 +41,6 @@ pip install scapy
 sudo python network_sniffer.py
 ```
 ## Output
-
 Source IP: 192.168.1.100 -> Destination IP: 8.8.8.8 | Protocol: 6
 TCP Packet | Source Port: 43567 -> Destination Port: 80
 --------------------------------------------------
